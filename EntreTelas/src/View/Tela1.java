@@ -17,6 +17,11 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Tela1 extends JFrame {
 
@@ -24,6 +29,7 @@ public class Tela1 extends JFrame {
 	private Mensagem mensagem = new Mensagem("Take my Ass");
 	private JTextArea textArea;
 	private Principal principal;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -66,25 +72,18 @@ public class Tela1 extends JFrame {
 		textArea.setBounds(29, 80, 379, 73);
 		contentPane.add(textArea);
 		
-		JButton btnAtualizarMensagem = new JButton("Mudar MSG");
-		btnAtualizarMensagem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				principal.getMensagem().setMensagem(JOptionPane.showInputDialog("Qual nova Mensagem?"));
+		textField = new JTextField();		
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				principal.getMensagem().setMensagem(textField.getText());
 				principal.atualizarMSG();
-				JOptionPane.showMessageDialog(null, "Verifique se mudou na principal");
-			}
-		});
-		btnAtualizarMensagem.setBounds(29, 165, 136, 23);
-		contentPane.add(btnAtualizarMensagem);
-		
-		JButton btnVerOBjeto = new JButton("Atualizar Obj");
-		btnVerOBjeto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 				atualizarMSG();
 			}
 		});
-		btnVerOBjeto.setBounds(293, 164, 115, 23);
-		contentPane.add(btnVerOBjeto);
+		textField.setBounds(29, 175, 379, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
 		atualizarMSG();
 	}
 
